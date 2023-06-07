@@ -1,15 +1,20 @@
-// const removeImports = require("next-remove-imports");
+const withCSS = require('@zeit/next-css');
 
-// // next.config.js
-// module.exports = {
-//   // ...other config options
-//   webpack: (config, { isServer }) => {
-//     if (!isServer) {
-//       config.module.rules.push({
-//         test: /\.css$/,
-//         use: ["style-loader", "css-loader"],
-//       });
-//     }
-//     return config;
-//   },
-// };
+module.exports = {
+    webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+      // Filter out default Next.js CSS rules:
+      config.module.rules = config.module.rules.filter(r => !r.oneOf);
+  
+      // Add your own rules
+  
+      config.module.rules.push({
+        test: /\.scss$/i,
+        use: ['style-loader', 'css-loader', 'scss-loader'],
+      })
+      return config
+    },
+    
+    webpack(config, options) {
+        return config;
+    },
+  }

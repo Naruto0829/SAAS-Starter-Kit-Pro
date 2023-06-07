@@ -25,7 +25,7 @@
     "@zeit/next-css": "^1.0.1",
     "antd": "^4.16.13",
     "axios": "^0.21.4",
-    "css-loader": "^6.7.4",
+    "css-loader": "^6.8.1",
     "dotenv": "^10.0.0",
     "firebase": "^8.3.0",
     "formik": "^2.2.6",
@@ -52,6 +52,7 @@
     "recharts": "^2.1.2",
     "redux": "^4.2.1",
     "redux-logger": "^3.0.6",
+    "sass-loader": "^13.3.1",
     "style-loader": "^3.3.3",
     "styled-components": "^5.3.1",
     "yup": "^0.32.9"

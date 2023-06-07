@@ -7,6 +7,6 @@ import { requirePermissions } from '../Middleware/permissions.js';
 
 /* AddStaff in sendinblue */
 
-router.post('/post/addStaff',  asyncHandler(addStaff));
+router.post('/employee/addStaff',  asyncHandler(addStaff));
 
 export default router;

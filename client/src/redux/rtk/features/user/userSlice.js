@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import Axios from "../../../../services/axios";
 import { toast } from "react-toastify";
 
 const initialState = {
@@ -9,19 +9,19 @@ const initialState = {
 	loading: false,
 };
 
-export const addStaff = createAsyncThunk("/api/user/addStaff", async (values) => {
+export const addStaff = createAsyncThunk("user/addStaff", async (values) => {
 	try {
-		const { data } = await axios({
+		const { data } = await Axios({
 			method: "post",
 			headers: {
 				Accept: "application/json",
 				"Content-Type": "application/json;charset=UTF-8",
 			},
-			url: `user/register`,
+			url: `/api/employee/addStaff`,
 			data: {
 				...values,
 			},
-		});
+		});	
 		toast.success("Registration successful");
 		return {
 			data,
@@ -38,7 +38,7 @@ export const addStaff = createAsyncThunk("/api/user/addStaff", async (values) =>
 
 export const deleteStaff = createAsyncThunk("/api/user/deleteStaff", async (id) => {
 	try {
-		const resp = await axios({
+		const resp = await Axios({
 			method: "patch",
 			headers: {
 				Accept: "application/json",
@@ -59,7 +59,7 @@ export const loadSingleStaff = createAsyncThunk(
 	"user/loadSingleStaff",
 	async (id) => {
 		try {
-			const data = await axios.get(`user/${id}`);
+			const data = await Axios.get(`user/${id}`);
 			return data;
 		} catch (error) {
 			console.log(error.message);
@@ -71,7 +71,7 @@ export const loadAllStaff = createAsyncThunk(
 	"user/loadAllStaff",
 	async ({ status }) => {
 		try {
-			const { data } = await axios.get(`user?status=${status}`);
+			const { data } = await Axios.get(`user?status=${status}`);
 			return data;
 		} catch (error) {
 			console.log(error.message);
@@ -81,7 +81,7 @@ export const loadAllStaff = createAsyncThunk(
 
 export const addUser = createAsyncThunk("user/addUser", async (values) => {
 	try {
-		const { data } = await axios({
+		const { data } = await Axios({
 			method: "post",
 			headers: {
 				Accept: "application/json",
@@ -118,7 +118,7 @@ export const updateUser = createAsyncThunk(
 	"user/updateUser",
 	async ({ id, values }) => {
 		try {
-			const { data } = await axios({
+			const { data } = await Axios({
 				method: "put",
 				url: `user/${id}`,
 				data: {
@@ -140,8 +140,8 @@ export const updateUser = createAsyncThunk(
 	}
 );
 
-const userSlice = createSlice({
-	name: "user",
+const employeeSlice = createSlice({
+	name: "employee",
 	initialState,
 	reducers: {
 		clearUser: (state) => {
@@ -256,5 +256,5 @@ const userSlice = createSlice({
 	},
 });
 
-export default userSlice.reducer;
-export const { clearUser } = userSlice.actions;
+export default employeeSlice.reducer;
+export const { clearUser } = employeeSlice.actions;
