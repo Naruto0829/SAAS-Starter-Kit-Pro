@@ -9,6 +9,7 @@ import {
 import { CreateOrgRole } from '../../Model/sql/roles/roles.js';
 
 export const CreateOrg = async (req, res) => {
+
   let primary_email = req.body.email;
   let org_name = req.body.org_name;
   let user_id = req.body.user_id;

@@ -35,6 +35,7 @@ export const CreateUser = async (req, res) => {
 };
 
 export const SignUp = async (req, res) => {
+
   let token = req.body.token;
   let username = req.body.username;
   let email = req.body.email;
@@ -51,22 +52,18 @@ export const SignUp = async (req, res) => {
     res.status(400).send({ type: 'Failed Sign Up', message: 'User Already Exists' });
     return;
   }
-
   //decode the firebase token recieved from frontend and save firebase uuid
   let decodedToken = await firebaseAdmin.auth().verifyIdToken(token);
   let firebaseId = decodedToken.user_id;
-
   //generate random bytes for user email verify
   const randomBytes = nanoid();
   confirmEmailUrl = `
     ${confirmEmailUrl}/?key=${randomBytes}&isInviteFlow=${isInviteFlow}&invite_key=${invite_key}
   `;
-
   //send verification email
   let template = 'verify email';
   let locals = { confirmEmailUrl, username };
-  // await sendEmail(email, template, locals);
-
+  await sendEmail(email, template, locals);
   //save user firebase info to our own db, and get unique user database id
   await saveUsertoDB(email, username, firebaseId, randomBytes);
 
@@ -81,7 +78,6 @@ export const Login = async (req, res) => {
   let decodedToken = await firebaseAdmin.auth().verifyIdToken(token);
   let firebaseId = decodedToken.user_id;
   
-  console.log("here");
   //Check if User exists
   let user = await getUser(email);
 

@@ -10,6 +10,7 @@ export const CreateOrgModel = async (primary_email, org_name) => {
   let queryResult = await db.query(text, values);
 
   return queryResult.rows[0].id;
+  
 };
 
 export const GetOrgModel = async (user_id) => {

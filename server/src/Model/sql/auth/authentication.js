@@ -1,12 +1,13 @@
 import db from '../../../Database/sql/db.js';
 
 export const getUser = async (email) => {
+  
+
   //check if email exists
   let text = `SELECT * FROM users
               WHERE email=$1`;
 
   let values = [email];
-
   let queryResult = await db.query(text, values);
 
   return queryResult.rows[0];
@@ -18,7 +19,7 @@ export const verifyUser = async (verify_key) => {
               WHERE verify_key=$3
               RETURNING id, email, username`;
 
-  let values = ['', 't', verify_key];
+  let values = ['', 't', verify_key ];
   let queryResult = await db.query(text, values);
 
   return queryResult.rows[0];

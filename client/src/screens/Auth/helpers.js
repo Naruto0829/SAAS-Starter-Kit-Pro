@@ -100,8 +100,6 @@ export const SignupAuth = async (
   let authData = { email, username, token, confirmEmailUrl, isInviteFlow, invite_key };
 
   await axios.post(`/auth/signup`, authData).catch((err) => {
-    debugger;
-    console.log("I am here");
     fetchFailure(err);
   });
 
